@@ -123,6 +123,7 @@ export class Cigar {
 
                 this.trigger = Actor.Create(this.context, {
                         actor: {
+                                owner: this.options.user.id,
                                 parentId: this.anchor.id,
                                 transform: {
                                         local,
@@ -170,6 +171,7 @@ export class Cigar {
 
                 this.tip = Actor.Create(this.context, {
                         actor: {
+                                owner: this.options.user.id,
                                 parentId: this.anchor.id,
                                 transform: {
                                         local,

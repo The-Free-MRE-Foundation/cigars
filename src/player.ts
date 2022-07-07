@@ -25,15 +25,20 @@ export class Player {
         private cigar: Cigar;
         private model: Actor;
 
-        private _index: number = 0;
+        private _index: number;
         get index() {
                 return this._index;
         }
         set index(i: number) {
+                const prev = this._index;
                 const cigars = this.getCigarOptions();
                 this._index = Math.max(0, i) % cigars.length;
                 const cigar = cigars[this.index];
                 this.updateModel(cigar as CigarOptions);
+                if (prev !== undefined){
+                        this.removeCigar(false);
+                        this.equipCigar();
+                }
         }
 
         get equipped() {
@@ -66,6 +71,7 @@ export class Player {
                 this.mouth = Actor.Create(this.context, {
                         actor: {
                                 name: 'mouth',
+                                owner: this.options.user.id,
                                 transform: {
                                         local,
                                 },
@@ -95,7 +101,8 @@ export class Player {
                                 name: options.name,
                                 transform: {
                                         local
-                                }
+                                },
+                                exclusiveToUser: this.options.user.id
                         }
                 });
         }
@@ -109,10 +116,12 @@ export class Player {
                 }
         }
 
-        public removeCigar() {
+        public removeCigar(manual: boolean = true) {
                 this.cigar?.remove();
                 this.cigar = undefined;
-                this.onPutout();
+                if (manual){
+                        this.onPutout();
+                }
         }
 
         public remove() {
