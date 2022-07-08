@@ -10,180 +10,211 @@ import { fetchJSON, translate } from "./utils";
 
 const MIN_SYNC_INTERVAL = 1;
 
-const DEFAULT_CIGARS = [
-        {
-                name: 'cigar',
-                attachPoint: 'right-hand',
-                resourceId: 'artifact:2040220300980781199',
+const CIGARS_COMMON = {
+        mouth: {
+                dimensions: {
+                        width: 0.08,
+                        height: 0.08,
+                        depth: 0.08
+                },
                 transform: {
                         position: {
-                                x: -0.024,
-                                y: 0.1,
-                                z: 0.115
-                        },
-                        rotation: {
-                                x: -90,
-                                y: 0,
-                                z: 0
+                                x: 0.00039,
+                                y: -0.09840258,
+                                z: 0.1823
                         }
-                },
-                model: {
-                        transform: {
-                                position: {
-                                        x: -0.0004,
-                                        y: 0.017,
-                                        z: -0.0607
-                                },
-                                rotation: {
-                                        x: -9.973,
-                                        y: 0,
-                                        z: 0
-                                }
-                        },
-                },
-                smoke: {
-                        resourceId: "artifact:2040220300586516620",
-                        transform: {
-                                position: {
-                                        x: 0,
-                                        y: 0,
-                                        z: 0.05
-                                }
-                        }
-                },
-                inhale: {
-                        resourceId: "artifact:2040220301114998928",
-                        duration: 4,
-                },
-                exhale: {
-                        resourceId: "artifact:2040220301240828049",
-                        transform: {
-                                position: {
-                                        x: 0.00039,
-                                        y: -0.091,
-                                        z: 0.131
-                                }
-                        },
-                        duration: 4,
-                },
-                trigger: {
-                        transform: {
-                                position: {
-                                        x: -0.024, y: -0.0003, z: 0.115
-                                },
-                                rotation: {
-                                        x: 0, y: 0, z: 0
-                                },
-                        },
-                        dimensions: {
-                                width: 0.04,
-                                height: 0.04,
-                                depth: 0.04
-                        }
-                },
-                tip: {
-                        transform: {
-                                position: {
-                                        x: -0.024, y: 0.137, z: 0.115
-                                },
-                                rotation: {
-                                        x: 0, y: 0, z: 0
-                                },
-                        },
-                        dimensions: {
-                                width: 0.04,
-                                height: 0.04,
-                                depth: 0.04
-                        }
-                },
-        },
-        {
-                name: 'cigarette',
-                attachPoint: 'right-hand',
-                resourceId: 'artifact:2040291269854364362',
-                transform: {
-                        position: {
-                                x: -0.0196,
-                                y: 0.059,
-                                z: 0.1041
-                        },
-                        rotation: {
-                                x: -90,
-                                y: 0,
-                                z: 0
-                        }
-                },
-                model: {
-                        transform: {
-                                position: {
-                                        x: -0.0482,
-                                        y: 0.0132,
-                                        z: -0.0463
-                                },
-                                rotation: {
-                                        x: -5.087,
-                                        y: 46.187,
-                                        z: 0
-                                }
-                        },
-                },
-                smoke: {
-                        resourceId: "artifact:2040220300586516620",
-                        transform: {
-                                position: {
-                                        x: 0,
-                                        y: 0,
-                                        z: 0.0375
-                                }
-                        }
-                },
-                inhale: {
-                        resourceId: "artifact:2040220301114998928",
-                        duration: 4,
-                },
-                exhale: {
-                        resourceId: "artifact:2040220301240828049",
-                        transform: {
-                                position: {
-                                        x: 0.00039,
-                                        y: -0.091,
-                                        z: 0.131
-                                }
-                        },
-                        duration: 4,
-                },
-                trigger: {
-                        transform: {
-                                position: {
-                                        x: -0.01960001, y: -0.0241, z: 0.1041
-                                },
-                                rotation: {
-                                        x: 0, y: 0, z: 0
-                                },
-                        },
-                        dimensions: {
-                                width: 0.04,
-                                height: 0.04,
-                                depth: 0.04
-                        }
-                },
-                tip: {
-                        transform: {
-                                position: {
-                                        x: -0.01960001, y: 0.0844, z: 0.1041
-                                },
-                                rotation: {
-                                        x: 0, y: 0, z: 0
-                                },
-                        },
-                        dimensions: {
-                                width: 0.04,
-                                height: 0.04,
-                                depth: 0.04
-                        }
-                },
+                }
         }
-];
+}
+
+const DEFAULT_CIGAR_OPTIONS = {
+        ashtray: {
+                resourceId: "artifact: 2040220300846563469",
+                dimensions: {
+                        width: 0.13,
+                        height: 0.025,
+                        depth: 0.13
+                }
+        },
+        putout: {
+                resourceId: "artifact:2040220301500874899",
+                duration: 2
+        },
+        cigars: [
+                {
+                        name: 'cigar',
+                        attachPoint: 'right-hand',
+                        resourceId: 'artifact:2040220300980781199',
+                        transform: {
+                                position: {
+                                        x: -0.024,
+                                        y: 0.1,
+                                        z: 0.115
+                                },
+                                rotation: {
+                                        x: -90,
+                                        y: 0,
+                                        z: 0
+                                }
+                        },
+                        model: {
+                                transform: {
+                                        position: {
+                                                x: -0.0004,
+                                                y: 0.017,
+                                                z: -0.0607
+                                        },
+                                        rotation: {
+                                                x: -9.973,
+                                                y: 0,
+                                                z: 0
+                                        }
+                                },
+                        },
+                        smoke: {
+                                resourceId: "artifact:2040220300586516620",
+                                transform: {
+                                        position: {
+                                                x: 0,
+                                                y: 0,
+                                                z: 0.05
+                                        }
+                                }
+                        },
+                        inhale: {
+                                resourceId: "artifact:2040220301114998928",
+                                duration: 4,
+                        },
+                        exhale: {
+                                resourceId: "artifact:2040220301240828049",
+                                transform: {
+                                        position: {
+                                                x: 0.00039,
+                                                y: -0.091,
+                                                z: 0.131
+                                        }
+                                },
+                                duration: 4,
+                        },
+                        trigger: {
+                                transform: {
+                                        position: {
+                                                x: -0.024, y: -0.0003, z: 0.115
+                                        },
+                                        rotation: {
+                                                x: 0, y: 0, z: 0
+                                        },
+                                },
+                                dimensions: {
+                                        width: 0.04,
+                                        height: 0.04,
+                                        depth: 0.04
+                                }
+                        },
+                        tip: {
+                                transform: {
+                                        position: {
+                                                x: -0.024, y: 0.137, z: 0.115
+                                        },
+                                        rotation: {
+                                                x: 0, y: 0, z: 0
+                                        },
+                                },
+                                dimensions: {
+                                        width: 0.04,
+                                        height: 0.04,
+                                        depth: 0.04
+                                }
+                        },
+                },
+                {
+                        name: 'cigarette',
+                        attachPoint: 'right-hand',
+                        resourceId: 'artifact:2040291269854364362',
+                        transform: {
+                                position: {
+                                        x: -0.0196,
+                                        y: 0.059,
+                                        z: 0.1041
+                                },
+                                rotation: {
+                                        x: -90,
+                                        y: 0,
+                                        z: 0
+                                }
+                        },
+                        model: {
+                                transform: {
+                                        position: {
+                                                x: -0.0482,
+                                                y: 0.0132,
+                                                z: -0.0463
+                                        },
+                                        rotation: {
+                                                x: -5.087,
+                                                y: 46.187,
+                                                z: 0
+                                        }
+                                },
+                        },
+                        smoke: {
+                                resourceId: "artifact:2040220300586516620",
+                                transform: {
+                                        position: {
+                                                x: 0,
+                                                y: 0,
+                                                z: 0.0375
+                                        }
+                                }
+                        },
+                        inhale: {
+                                resourceId: "artifact:2040220301114998928",
+                                duration: 4,
+                        },
+                        exhale: {
+                                resourceId: "artifact:2040220301240828049",
+                                transform: {
+                                        position: {
+                                                x: 0.00039,
+                                                y: -0.091,
+                                                z: 0.131
+                                        }
+                                },
+                                duration: 4,
+                        },
+                        trigger: {
+                                transform: {
+                                        position: {
+                                                x: -0.01960001, y: -0.0241, z: 0.1041
+                                        },
+                                        rotation: {
+                                                x: 0, y: 0, z: 0
+                                        },
+                                },
+                                dimensions: {
+                                        width: 0.04,
+                                        height: 0.04,
+                                        depth: 0.04
+                                }
+                        },
+                        tip: {
+                                transform: {
+                                        position: {
+                                                x: -0.01960001, y: 0.0844, z: 0.1041
+                                        },
+                                        rotation: {
+                                                x: 0, y: 0, z: 0
+                                        },
+                                },
+                                dimensions: {
+                                        width: 0.04,
+                                        height: 0.04,
+                                        depth: 0.04
+                                }
+                        },
+                }
+        ]
+};
 
 /**
  * The main class of this app. All the logic goes here.
@@ -203,36 +234,8 @@ export default class App {
          * Once the context is "started", initialize the app.
          */
         private async started() {
-                const cigars = this.url ? await fetchJSON(this.url) : DEFAULT_CIGARS;
-                this.cigarApp = new CigarsApp(this.context, {
-                        ashtray: {
-                                resourceId: 'artifact:2040220300846563469',
-                                dimensions: {
-                                        width: 0.13,
-                                        height: 0.025,
-                                        depth: 0.13
-                                }
-                        },
-                        putout: {
-                                resourceId: 'artifact:2040220301500874899',
-                                duration: 2,
-                        },
-                        cigars,
-                        mouth: {
-                                dimensions: {
-                                        width: 0.08,
-                                        height: 0.08,
-                                        depth: 0.08
-                                },
-                                transform: {
-                                        position: {
-                                                x: 0.00039,
-                                                y: -0.09840258,
-                                                z: 0.1823
-                                        }
-                                }
-                        },
-                });
+                const options = this.url ? await fetchJSON(this.url) : DEFAULT_CIGAR_OPTIONS;
+                this.cigarApp = new CigarsApp(this.context, Object.assign({ ...options }, CIGARS_COMMON));
         }
 
         private async userjoined(user: User) {
